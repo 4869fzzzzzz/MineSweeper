@@ -1,7 +1,8 @@
 #pragma once
 #include "headfile.h"
 int** Gameboard_setup_in();
-int** game_start();
+int** game_board_in_init();
+int** game_board_out_init();
 int MineNumber(int** s, int row, int col);
 void Gameboard_init(int** arr);
 //-------------------------------------------------------------------------------------------------------------------
@@ -11,9 +12,11 @@ void Gameboard_init(int** arr);
 // 使用示例     
 // 备注信息		只是游戏内盘，外盘额外创建
 //-------------------------------------------------------------------------------------------------------------------
-int** game_start()
+int** game_board_in_init()
 {
 	int modle = 0;
+	Game_state = Game_In_progress;
+	
 	int** s;
 	scanf("%d",&modle);
 	if (modle == 1)
@@ -108,4 +111,26 @@ int MineNumber(int**s,int row,int col)
 		number++;
 	}
 	return number;
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+// 函数简介     游戏外盘的建立
+// 参数说明     无
+// 返回参数     二维动态数组的头地址
+// 使用示例     
+// 备注信息		内部调用
+//-------------------------------------------------------------------------------------------------------------------
+int** game_board_out_init()
+{
+	int** arr;
+	arr = Gameboard_setup_in();
+	int i, j;
+	for (i = 0; i < Row + 2; i++)
+	{
+		for (j = 0; j < Col + 2; j++)
+		{
+			arr[i][j] = 1;
+		}
+	}
+	return arr;
 }
