@@ -3,6 +3,7 @@
 int** Gameboard_setup_in();
 int** game_board_in_init();
 int** game_board_out_init();
+int Count_mine(int** arr);
 int MineNumber(int** s, int row, int col);
 void Gameboard_init(int** arr);
 //-------------------------------------------------------------------------------------------------------------------
@@ -133,4 +134,17 @@ int** game_board_out_init()
 		}
 	}
 	return arr;
+}
+
+int Count_mine(int** arr)
+{
+	int i, j;
+	int num=0;
+	for(i=1;i<Row+1;i++)
+		for (j = 1; j < Col + 1; j++)
+		{
+			if (arr[i][j] == 9)
+				num++;
+		}
+	return num;
 }
