@@ -130,7 +130,10 @@ int** game_board_out_init()
 	{
 		for (j = 0; j < Col + 2; j++)
 		{
-			arr[i][j] = 1;
+			if (i == 0 || j == 0 || i == Row + 1 || j == Col + 1)
+				arr[i][j] = 0;
+			else
+				arr[i][j] = 1;
 		}
 	}
 	return arr;

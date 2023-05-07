@@ -1,6 +1,7 @@
 #pragma once
 #include "headfile.h"
 void Gameboard_free(int** s);
+int Flag_number(int row, int col, int** arr_out);
 void User_Operation(int** arr_out, int** arr_in);
 int outNumber(int row, int col, int** arr_out, int** arr_in);
 void eightzoneSweep(int row, int col, int** arr_out, int** arr_in);
@@ -151,7 +152,30 @@ int Operation4(int** arr_out, int** arr_in)
 //-------------------------------------------------------------------------------------------------------------------
 int Operation9(int** arr_out, int** arr_in)
 {
-	return 0;
+	int num=Flag_number(Opt.row, Opt.col, arr_out);
+	if(num!=arr_in[Opt.row][Opt.col])
+		return 0;
+	else
+	{
+		int i, j;
+		
+		for (i = Opt.row - 1; i < Opt.row + 2; i++)
+			for (j = Opt.col - 1; j < Opt.col + 2; j++)
+			{
+				if (arr_out[i][j] == 1)
+				{
+					if (arr_in[i][j] != 0)
+					{
+						arr_out[i][j] = 0;
+					}
+					else
+					{
+						eightzoneSweep(i, j, arr_out, arr_in);
+					}
+				}
+			}
+		return 1;
+	}
 }
 //-------------------------------------------------------------------------------------------------------------------
 // 函数简介     清除该格周围3x3,可递归
@@ -167,6 +191,7 @@ int Operation9(int** arr_out, int** arr_in)
 //-------------------------------------------------------------------------------------------------------------------
 void eightzoneSweep(int row,int col,int**arr_out,int**arr_in)
 {
+	
 	if (arr_out[row][col] == 1)
 	{
 		/*if (arr_in[row][col] == 0 && (outNumber(row, col, arr_out, arr_in) > 0))
@@ -249,14 +274,14 @@ void eightzoneSweep(int row,int col,int**arr_out,int**arr_in)
 
 	}
 
-	if (arr_out[row + 1][col ] != 0)
+	if (arr_out[row + 1][col] != 0)
 	{
-		if (arr_in[row - 1][col ] == 0 && (outNumber(row - 1, col , arr_out, arr_in) > 0))
+		if (arr_in[row + 1][col] == 0 && (outNumber(row + 1, col , arr_out, arr_in) > 0))
 		{
-			eightzoneSweep(row - 1, col , arr_out, arr_in);
+			eightzoneSweep(row + 1, col , arr_out, arr_in);
 		}
 		if(arr_out[row+1][col]==1)
-		arr_out[row + 1][col ] = 0;
+		arr_out[row + 1][col] = 0;
 
 	}
 
@@ -270,10 +295,16 @@ void eightzoneSweep(int row,int col,int**arr_out,int**arr_in)
 		arr_out[row + 1][col + 1] = 0;
 
 	}
-	
+	/*Gameboard_Print(arr_out, arr_in);*/
 }
 
-
+//-------------------------------------------------------------------------------------------------------------------
+// 函数简介     
+// 参数说明     
+// 返回参数     
+// 使用示例     
+// 备注信息		
+//-------------------------------------------------------------------------------------------------------------------
 int outNumber(int row , int col,int** arr_out,int** arr_in)
 {
 	int num=0;
@@ -325,5 +356,24 @@ int outNumber(int row , int col,int** arr_out,int** arr_in)
 	{
 		num++;
 	}
+	return num;
+}
+//-------------------------------------------------------------------------------------------------------------------
+// 函数简介     
+// 参数说明     
+// 返回参数     
+// 使用示例     
+// 备注信息		
+//-------------------------------------------------------------------------------------------------------------------
+int Flag_number(int row, int col,int** arr_out)
+{
+	int i, j;
+	int num = 0;
+	for(i=row-1;i<row+2;i++)
+		for (j = col-1; j < col + 2; j++)
+		{
+			if (arr_out[i][j] == 2)
+				num++;
+		}
 	return num;
 }
