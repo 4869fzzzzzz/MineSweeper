@@ -11,14 +11,14 @@ int Mine_judge(int** arr_out, int** arr_in,int mine);
 //-------------------------------------------------------------------------------------------------------------------
 int State_judge(int** arr_out, int** arr_in,int mine)
 {
-	int i, j,number1=0,num2=0;
-	int num = Col * Row;
+	int i, j,num2=0;
+	int num = Col * Row;//num为格数
 	for(i=1;i<Row+1;i++)
 		for (j = 1; j < Col + 1; j++)
 		{
 			if (arr_out[i][j] == 0&&arr_in[i][j]==9)
 			{
-				return -1;
+				return -1;//踩雷返回结束标志
 			}
 			/*if (arr_out[i][j] == 2 && arr_in[i][j] == 9)
 			{
@@ -30,11 +30,17 @@ int State_judge(int** arr_out, int** arr_in,int mine)
 			}
 		}
 	if (num2 == (num - mine))
-		return 1;
+		return 1;//打开的非雷格数已经等于格数减有雷格数，返回游戏胜利标志
 	else
 		return 0;
 }
-
+//-------------------------------------------------------------------------------------------------------------------
+// 函数简介     返回游戏提示的剩余雷数
+// 参数说明     arr_out为外盘地址，arr_in为内盘地址，mine为游戏总雷数
+// 返回参数     剩余雷数
+// 使用示例     
+// 备注信息		外部调用，判断为有效标注
+//-------------------------------------------------------------------------------------------------------------------
 int Mine_judge(int** arr_out, int** arr_in,int mine)
 {
 	int i, j, number1 = 0;

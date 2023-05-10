@@ -153,28 +153,44 @@ int Operation4(int** arr_out, int** arr_in)
 int Operation9(int** arr_out, int** arr_in)
 {
 	int num=Flag_number(Opt.row, Opt.col, arr_out);
+	int judge = 0;
 	if(num!=arr_in[Opt.row][Opt.col])
 		return 0;
 	else
 	{
 		int i, j;
-		
 		for (i = Opt.row - 1; i < Opt.row + 2; i++)
 			for (j = Opt.col - 1; j < Opt.col + 2; j++)
 			{
-				if (arr_out[i][j] == 1)
+				if (arr_out[i][j] == 1&& arr_in[i][j] == 9)
 				{
-					if (arr_in[i][j] != 0)
-					{
-						arr_out[i][j] = 0;
-					}
-					else
-					{
-						eightzoneSweep(i, j, arr_out, arr_in);
-					}
+					judge++;
+					arr_out[i][j] == 0;
 				}
 			}
-		return 1;
+		
+		 
+			if (judge == 0) {
+				int i, j;
+
+				for (i = Opt.row - 1; i < Opt.row + 2; i++)
+					for (j = Opt.col - 1; j < Opt.col + 2; j++)
+					{
+						if (arr_out[i][j] == 1)
+						{
+							if (arr_in[i][j] != 0)
+							{
+								arr_out[i][j] = 0;
+							}
+							else
+							{
+								eightzoneSweep(i, j, arr_out, arr_in);
+							}
+						}
+					}
+				return 1;
+			}
+
 	}
 }
 //-------------------------------------------------------------------------------------------------------------------
@@ -299,11 +315,11 @@ void eightzoneSweep(int row,int col,int**arr_out,int**arr_in)
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// 函数简介     
-// 参数说明     
-// 返回参数     
+// 函数简介     计算某格周围未打开的格数
+// 参数说明     row-行，col-列，arr_out-外盘，arr_in-内盘
+// 返回参数     周围未打开格数
 // 使用示例     
-// 备注信息		
+// 备注信息		内部调用
 //-------------------------------------------------------------------------------------------------------------------
 int outNumber(int row , int col,int** arr_out,int** arr_in)
 {
@@ -359,11 +375,11 @@ int outNumber(int row , int col,int** arr_out,int** arr_in)
 	return num;
 }
 //-------------------------------------------------------------------------------------------------------------------
-// 函数简介     
-// 参数说明     
-// 返回参数     
+// 函数简介     判断周围旗帜数量
+// 参数说明     row行，col列，arr_out外盘
+// 返回参数     旗帜数
 // 使用示例     
-// 备注信息		
+// 备注信息		内部调用
 //-------------------------------------------------------------------------------------------------------------------
 int Flag_number(int row, int col,int** arr_out)
 {
@@ -377,3 +393,4 @@ int Flag_number(int row, int col,int** arr_out)
 		}
 	return num;
 }
+

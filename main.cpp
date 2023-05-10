@@ -25,6 +25,8 @@ int main()
 	Gameboard_debugout(Game_board_in);
 	//1 1 9会出问题，待进一步测试-
 	//5.7 改完了，op1加减号没都换完，血压高了，另外有空可以重构一下，加个循环看起来顺眼
+	//双击似乎不能打开后再输出，需要提前加一个判断
+	//游戏模式待补充，样例过了，就差一些特殊情况了，周围全是标记的0等
 	while (!Game_state)
 	{
 		Get_User_Operatian();
@@ -40,8 +42,8 @@ int main()
 		printf("%d %d\n",Operation_number,Mine_remain);
 		Gameboard_Print(Game_board_out,Game_board_in);
 	}
-	//输出结束后提示-待补充
-	printf("ssssssss\n");
+	//输出结束后提示
+	Gameover_print(Game_state,Operation_number,Mine_remain,Game_board_out,Game_board_in);
 	Gameboard_free(Game_board_in);
 	Gameboard_free(Game_board_out);
 	return 0;
