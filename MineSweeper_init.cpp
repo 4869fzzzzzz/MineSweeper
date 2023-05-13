@@ -3,6 +3,7 @@
 int** Gameboard_setup_in();
 int** game_board_in_init();
 int** game_board_out_init();
+int** game_board_tmp_init(int** arr_out);
 int Count_mine(int** arr);
 int MineNumber(int** s, int row, int col);
 void Gameboard_init(int** arr);
@@ -16,6 +17,7 @@ void Gameboard_init(int** arr);
 int** game_board_in_init()
 {
 	int modle = 0;
+	int mine=0;
 	Game_state = Game_In_progress;
 	
 	int** s;
@@ -25,6 +27,23 @@ int** game_board_in_init()
 		Col = 9;
 		Row = 9;
 	}
+	else if (modle == 2)
+	{
+		Col = 16;
+		Row = 16;
+	}
+	else if (modle == 3)
+	{
+		Col = 30;
+		Row = 16;
+	}
+	else
+	{
+		scanf("%d",&Row);
+		scanf("%d",&Col);
+		scanf("%d",&mine);
+	}
+
 	s = Gameboard_setup_in();
 	Gameboard_input(s);
 	Gameboard_init(s);
@@ -138,7 +157,13 @@ int** game_board_out_init()
 	}
 	return arr;
 }
-
+//-------------------------------------------------------------------------------------------------------------------
+// 函数简介     计算游戏总雷数
+// 参数说明     arr游戏内盘地址
+// 返回参数     游戏总雷数
+// 使用示例     
+// 备注信息		用于游戏胜利的判断
+//-------------------------------------------------------------------------------------------------------------------
 int Count_mine(int** arr)
 {
 	int i, j;
@@ -151,3 +176,34 @@ int Count_mine(int** arr)
 		}
 	return num;
 }
+//-------------------------------------------------------------------------------------------------------------------
+// 函数简介     游戏外盘的建立
+// 参数说明     无
+// 返回参数     二维动态数组的头地址
+// 使用示例     
+// 备注信息		内部调用
+//-------------------------------------------------------------------------------------------------------------------
+int** game_board_tmp_init(int**arr_out)
+{
+	int** arr;
+	arr = Gameboard_setup_in();
+	int i, j;
+	for (i = 0; i < Row + 2; i++)
+	{
+		for (j = 0; j < Col + 2; j++)
+		{
+			if (i == 0 || j == 0 || i == Row + 1 || j == Col + 1)
+				arr[i][j] = 0;
+			else
+				arr[i][j] = 1;
+			if (arr_out[i][j] == 2)
+				arr[i][j] = 2;
+			else if (arr_out[i][j] == 3)
+			{
+				arr[i][j] = 3;
+			}
+		}
+	}
+	return arr;
+}
+

@@ -159,19 +159,21 @@ int Operation9(int** arr_out, int** arr_in)
 	else
 	{
 		int i, j;
-		for (i = Opt.row - 1; i < Opt.row + 2; i++)
+		for (i = Opt.row - 1; i < Opt.row + 2; i++) 
+		{
 			for (j = Opt.col - 1; j < Opt.col + 2; j++)
 			{
-				if (arr_out[i][j] == 1&& arr_in[i][j] == 9)
+				if (arr_out[i][j] == 1 && arr_in[i][j] == 9)
 				{
 					judge++;
-					arr_out[i][j] == 0;
+					arr_out[i][j] = 0;
 				}
 			}
+		}
 		
 		 
 			if (judge == 0) {
-				int i, j;
+				
 
 				for (i = Opt.row - 1; i < Opt.row + 2; i++)
 					for (j = Opt.col - 1; j < Opt.col + 2; j++)
@@ -207,17 +209,33 @@ int Operation9(int** arr_out, int** arr_in)
 //-------------------------------------------------------------------------------------------------------------------
 void eightzoneSweep(int row,int col,int**arr_out,int**arr_in)
 {
-	
+	/*int i, j;
+	if (arr_out[row][col] == 1)
+		arr_out[row][col] = 0;
+	for (i = row - 1; i < row + 2; i++) {
+		for (j = col - 1; j < row + 2; j++)
+		{
+			if (i != row || j != col)
+			{
+				if (arr_out[i][j] != 0)
+				{
+					if (arr_in[i][j] == 0 && (outNumber(i, j, arr_out, arr_in) > 0))
+					{
+						eightzoneSweep(i, j, arr_out, arr_in);
+					}
+					if (arr_out[i][j] == 1)
+					{
+						arr_out[i][j] = 0;
+					}
+				}
+			}
+		}
+	}*/
 	if (arr_out[row][col] == 1)
 	{
-		/*if (arr_in[row][col] == 0 && (outNumber(row, col, arr_out, arr_in) > 0))
-		{
-			eightzoneSweep(row, col, arr_out, arr_in);
-		}*/
 		arr_out[row][col] = 0;
-
 	}
-	if (arr_out[row - 1][col - 1] !=0)
+	if (arr_out[row - 1][col - 1] ==1)
 	{
 		
 		if (arr_in[row - 1][col - 1] == 0&&(outNumber(row-1,col-1,arr_out,arr_in)>0))
@@ -230,7 +248,7 @@ void eightzoneSweep(int row,int col,int**arr_out,int**arr_in)
 		}
 	}
 
-	if (arr_out[row - 1][col ] != 0)
+	if (arr_out[row - 1][col ] == 1)
 	{
 		if (arr_in[row - 1][col ] == 0 && (outNumber(row - 1, col , arr_out, arr_in) > 0))
 		{
@@ -242,7 +260,7 @@ void eightzoneSweep(int row,int col,int**arr_out,int**arr_in)
 		}
 	}
 
-	if (arr_out[row - 1][col + 1] != 0)
+	if (arr_out[row - 1][col + 1] == 1)
 	{
 		if (arr_in[row - 1][col + 1] == 0 && (outNumber(row - 1, col + 1, arr_out, arr_in) > 0))
 		{
@@ -254,7 +272,7 @@ void eightzoneSweep(int row,int col,int**arr_out,int**arr_in)
 	}
 
 
-	if (arr_out[row ][col - 1]!= 0)
+	if (arr_out[row ][col - 1]== 1)
 	{
 		if (arr_in[row ][col - 1] == 0 && (outNumber(row , col - 1, arr_out, arr_in) > 0))
 		{
@@ -267,7 +285,7 @@ void eightzoneSweep(int row,int col,int**arr_out,int**arr_in)
 
 	
 
-	if (arr_out[row][col+1] != 0)
+	if (arr_out[row][col+1] == 1)
 	{
 		if (arr_in[row][col + 1] == 0 && (outNumber(row , col + 1, arr_out, arr_in) > 0))
 		{
@@ -279,7 +297,7 @@ void eightzoneSweep(int row,int col,int**arr_out,int**arr_in)
 	}
 
 
-	if (arr_out[row + 1][col - 1] != 0)
+	if (arr_out[row + 1][col - 1] == 1)
 	{
 		if (arr_in[row + 1][col - 1] == 0 && (outNumber(row + 1, col - 1, arr_out, arr_in) > 0))
 		{
@@ -290,7 +308,7 @@ void eightzoneSweep(int row,int col,int**arr_out,int**arr_in)
 
 	}
 
-	if (arr_out[row + 1][col] != 0)
+	if (arr_out[row + 1][col] == 1)
 	{
 		if (arr_in[row + 1][col] == 0 && (outNumber(row + 1, col , arr_out, arr_in) > 0))
 		{
@@ -301,7 +319,7 @@ void eightzoneSweep(int row,int col,int**arr_out,int**arr_in)
 
 	}
 
-	if (arr_out[row + 1][col + 1] != 0)
+	if (arr_out[row + 1][col + 1] == 1)
 	{
 		if (arr_in[row + 1][col + 1] == 0 && (outNumber(row + 1, col + 1, arr_out, arr_in) > 0))
 		{
@@ -311,7 +329,7 @@ void eightzoneSweep(int row,int col,int**arr_out,int**arr_in)
 		arr_out[row + 1][col + 1] = 0;
 
 	}
-	/*Gameboard_Print(arr_out, arr_in);*/
+	///*Gameboard_Print(arr_out, arr_in);*/
 }
 
 //-------------------------------------------------------------------------------------------------------------------
@@ -347,10 +365,10 @@ int outNumber(int row , int col,int** arr_out,int** arr_in)
 		num++;
 	}
 
-	if (arr_out[row][col] == 1)
+	/*if (arr_out[row][col] == 1)
 	{
 		num++;
-	}
+	}*/
 
 	if (arr_out[row][col + 1] == 1)
 	{
@@ -388,7 +406,8 @@ int Flag_number(int row, int col,int** arr_out)
 	for(i=row-1;i<row+2;i++)
 		for (j = col-1; j < col + 2; j++)
 		{
-			if (arr_out[i][j] == 2)
+			
+			if (arr_out[i][j] == 2&&(i!=row||j!=col))
 				num++;
 		}
 	return num;
